@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+// import './App.css';
+// import FavoriteList from './FavoriteList'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends React.Component{
+    constructor(){
+        super();
+        this.state = {
+            posts: []
+        };
+    }
 
-export default App;
+    render() {
+        return (
+            <div className="ToDo">
+            <div  style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="header">
+            <h1>Create a Post</h1>
+            </div>
+          <form style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}  onSubmit={this.handleSubmit}>
+            <div  style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <h3>Name</h3>
+            </div>
+              <input  type="text" value={this.state.value} onChange={this.handleChange} placeholder = "What are you thinking?" />
+            <input type="submit" value="Submit" />
+          </form>
+          <div  style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}className="TotalNumber">
+          <h3>Total Posts: </h3>
+          </div>
+          </div>
+        );
+      }
+    }
+
+    export default App;
