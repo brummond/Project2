@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
-import './App.css';
-import firebase, { auth, provider } from './firebase.js';
+//import '../App.css';
+import firebase, { auth, provider } from '../firebase.js';
+import Navbar from './Navbar.js'
 
 // lots of help from
 // https://css-tricks.com/firebase-react-part-2-user-authentication/
 
-class Navbar extends Component{
+class LoginPage extends Component{
   constructor() {
     super();
     this.state = {
@@ -47,20 +47,33 @@ componentDidMount(){
     }
   });
 }
-
-
 render(){
+
     return (
-        <div className="nav">
+        <div className="wrapper">
           <header>
-            <h1>Name of App</h1>
-            <h2>Make a post</h2>
-            <h2>View posts</h2>
-               </header>
-          
+            <Navbar/>
+          </header>
+          {this.state.user ?
+              <button onClick={this.logout}>Log Out</button>
+              :
+              <button onClick={this.login}>Log In</button>
+            }
+
+          {this.state.user ?
+            <div>
+              <div className='user-profile'>
+                <img src={this.state.user.photoURL} />
+              </div>
+            </div>
+            :
+            <div className='wrapper'>
+              <p>You must log in to see others posts</p>
+            </div>
+          }
         </div>
       )
   }
 }
 
-export default Navbar;
+export default LoginPage;
