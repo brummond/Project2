@@ -1,39 +1,4 @@
 body {
   font-family: sans-serif;
-  background-color: grey;
-}
-
-header{
-  background-color: lightblue;
-  color: black;
-  padding:10px;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-h1{
-  display: block;
-  padding-right: 30%;
-}
-
-
-h2{
-  display: inline-block;
-  padding-right: 30px;
-
-}
-
-button{
-  background-color: lightblue;
-  margin-left: 30%;
-  margin-top: 20px;
-  height: 40px;
-  width: 40%;
-  cursor: pointer;
-}
-
-p{
-  margin-left: 34%;
+  background-color: lightgrey;
 }

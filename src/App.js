@@ -2,6 +2,7 @@ import DisplayPost from './components/displayPost.js'
 import CreatePost from './components/createPost.js'
 import LoginPage from './components/LoginPage.js'
 import Navbar from './components/Navbar.js'
+import './App.css';
 
 import {
   BrowserRouter as Router,
