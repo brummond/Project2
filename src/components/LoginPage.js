@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 //import '../App.css';
 import firebase, { auth, provider } from '../firebase.js';
-import Navbar from './Navbar.js'
 
 // lots of help from
 // https://css-tricks.com/firebase-react-part-2-user-authentication/
@@ -51,9 +50,6 @@ render(){
 
     return (
         <div className="wrapper">
-          <header>
-            <Navbar/>
-          </header>
           {this.state.user ?
               <button onClick={this.logout}>Log Out</button>
               :
