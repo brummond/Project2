@@ -25,7 +25,7 @@ class DisplayPost extends React.Component {
       )
   }
 }
-//Componet Higharchy
+//Component Higharchy
 /*
 Post Container -- Holds all of the single page post
   - Search Bar

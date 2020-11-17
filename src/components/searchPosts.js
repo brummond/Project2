@@ -2,8 +2,6 @@ import React from 'react';
 class SearchPost extends React.Component {
 
   render() {
-
-
     return(
         <div>
           <form>

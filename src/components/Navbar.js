@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import '../App.css';
 import firebase, { auth, provider } from '../firebase.js';
 import {
   BrowserRouter as Router,
@@ -62,11 +61,16 @@ render(){
       marginLeft: "10%",
       marginRight: "10%",
     }
+
     var navBox = {
       border: "1px solid black",
+      shadow: "5px solid black",
       padding: "2%",
-      textAlign: "center"
+      textAlign: "center",
+      margin: "2%",
+      backgroundColor: "#78aafa",
     }
+
     return (
         <div className="nav" style={navBox}>
           <Link to="/posts" style={linkStyles}>Posts</Link>
