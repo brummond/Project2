@@ -51,7 +51,7 @@ render(){
       textAlign: "center",
       fontSize: "110%",
       width: "30%",
-      height: "40px",
+      height: "50px",
       display: "inline-block",
       margin: "10px"
   }
