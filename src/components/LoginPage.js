@@ -49,8 +49,8 @@ componentDidMount(){
 render(){
   var buttonStyle = {
       textAlign: "center",
-      fontSize: "120%",
-      width: "20%",
+      fontSize: "110%",
+      width: "30%",
       height: "40px",
       display: "inline-block",
       margin: "10px"
@@ -81,7 +81,7 @@ render(){
           {this.state.user ?
             <div>
               <div className='user-profile'>
-                <img src={this.state.user.displayName} />
+                <p style={pStyle}> {this.state.user.displayName} </p>
               </div>
             </div>
             :
