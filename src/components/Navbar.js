@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import firebase, { auth, provider } from '../firebase.js';
+import {auth} from '../firebase.js';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 
@@ -14,40 +12,25 @@ class Navbar extends Component{
   constructor() {
     super();
     this.state = {
-      currentItem: '',
-      username: '',
-      items: [],
-      user: null
+      links: [{route: "/posts", name: "Posts"}, {route: "/create", name: "Create Posts"},{route: "/login", name: "Login"}]
     }
-
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
 
     };
 
-login(){
-  auth.signInWithPopup(provider)
-    .then((result) => {
-      const user = result.user;
-      this.setState({
-        user
-      });
-    });
-}
-
-logout(){
-  auth.signOut()
-    .then(() => {
-      this.setState({
-        user: null
-      });
-    });
-}
 
 componentDidMount(){
   auth.onAuthStateChanged((user) => {
     if (user) {
-      this.setState({ user });
+      console.log("User Singed In")
+      this.setState({
+        links: [{route: "/posts", name: "Posts"}, {route: "/create", name: "Create Posts"},{route: "/login", name: "Login"}]
+      });
+    }
+    else{
+      console.log("User Not Singed In")
+      this.setState({
+        links: [{route: "/posts", name: "Posts"},{route: "/login", name: "Login"}]
+      });
     }
   });
 }
@@ -70,13 +53,13 @@ render(){
       margin: "2%",
       backgroundColor: "#78aafa",
     }
+    const routes = this.state.links.map((link) =>
+        <Link to={link.route} style={linkStyles}> {link.name} </Link>
+    );
 
     return (
         <div className="nav" style={navBox}>
-          <Link to="/posts" style={linkStyles}>Posts</Link>
-          <Link to="/create" style={linkStyles}>Create Posts</Link>
-          <Link to="/login" style={linkStyles}> Login</Link>
-
+          {routes}
         </div>
       )
   }
