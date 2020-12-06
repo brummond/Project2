@@ -13,19 +13,7 @@ const config = {
   
 firebase.initializeApp(config);
 
-var db = firebase.firestore();
 
-db.collection("Posts").doc("wblLiVmuuAKcLTSXSj5G").set({
-  contents: "this is a test post",
-  dates: "12-1-20",
-  names: "John"
-})
-.then(function() {
-  console.log("Document successfully written!");
-})
-.catch(function(error) {
-  console.error("Error writing document: ", error);
-});
 
 export const provider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();
