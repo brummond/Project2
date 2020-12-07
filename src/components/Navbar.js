@@ -54,7 +54,7 @@ render(){
       backgroundColor: "#78aafa",
     }
     const routes = this.state.links.map((link) =>
-        <Link to={link.route} style={linkStyles}> {link.name} </Link>
+        <Link to={link.route} style={linkStyles} key={link.route}> {link.name} </Link>
     );
 
     return (

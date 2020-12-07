@@ -1,11 +1,25 @@
 import React from 'react';
 import SingelPost from './singlePosts.js'
-import SearchPost from './searchPosts.js'
-class DisplayPost extends React.Component {
+//import SearchPost from './searchPosts.js'
 
+
+class DisplayPost extends React.Component {
+  constructor(){
+      super();
+      this.state = {
+          search: ""
+      };
+      this.seach = this.search.bind(this);
+  }
+
+  search = e => {
+      this.setState({
+        [e.target.name]:e.target.value
+      });
+  }
 
   render() {
-
+    //console.log(this.state.posts)
     var postContainer = {
       width: "50%",
       height: "100%",
@@ -18,9 +32,11 @@ class DisplayPost extends React.Component {
 
     return(
         <div style={postContainer}>
-          <h1> Post Container </h1>
-          <SearchPost />
-          <SingelPost />
+          <h1> Posts </h1>
+            <form>
+              <input type="text" placeholder="Search.." name="search" onChange={this.search} />
+            </form>
+          <SingelPost search={this.state.search}/>
         </div>
       )
   }

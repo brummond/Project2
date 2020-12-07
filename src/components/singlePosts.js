@@ -1,12 +1,62 @@
 import React from 'react';
+import firebase from '../firebase.js';
+
 class SinglePost extends React.Component {
-
   //will hold state of all the posts -- will be linked to firebase
+  constructor() {
+    super();
+    this.state = {
+      posts: []
+    }
+    };
+  componentDidMount()
+  {
+    var tempArray = [];
+    var db = firebase.firestore();
+    db.collection("Posts").get().then((snapshot) =>{
+      //console.log(snapshot.docs)
+      snapshot.docs.forEach((doc) => {
+        tempArray.push({
+          ...doc.data(),
+          id: doc.id
+        })
 
+      })
+      this.setState({
+        posts: tempArray
+      })
+    })
 
+  }
+  componentDidUpdate = () =>
+  {
+    var tempArray = [];
+    var db = firebase.firestore();
+    db.collection("Posts").get().then((snapshot) =>{
+      //console.log(snapshot.docs)
+      snapshot.docs.forEach((doc) => {
+        if(doc.data().title.match(this.props.search) || doc.data().date.match(this.props.search))
+        {
+          tempArray.push({
+            ...doc.data(),
+            id: doc.id
+          })
+        }
+      })
+      this.setState({
+        posts: tempArray
+      })
+    })
+
+  }
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    this.setState = (state,callback)=>{
+        return;
+    };
+}
 
   render() {
-    var postTest = [{title: "Post 1", date: "October 17th", author: "Leo Huettel", id: 1, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},{title: "Post 2", date: "October 18th", author: "Leo Huettel", id: 2, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}];
 
     var singlePost = {
       border: "1px solid black",
@@ -18,12 +68,12 @@ class SinglePost extends React.Component {
 
     return(
         <div>
-          {postTest.map((post) =>
-            <div id={post.id} style={singlePost}>
-              <h3> {post.title} </h3>
-              <h5> {post.author} </h5>
+          {this.state.posts.map((post) =>
+            <div id={post.id} style={singlePost} key={post.id}>
+              <h3> {post.title}</h3>
+              <h5> {post.name} </h5>
               <h6> {post.date} </h6>
-              <p> {post.description} </p>
+              <p> {post.contents} </p>
             </div>
           )}
         </div>
