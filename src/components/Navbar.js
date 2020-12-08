@@ -4,6 +4,9 @@ import {
   BrowserRouter as Router,
   Link
 } from "react-router-dom";
+import { findByLabelText } from '@testing-library/react';
+
+
 
 // lots of help from
 // https://css-tricks.com/firebase-react-part-2-user-authentication/
@@ -12,7 +15,7 @@ class Navbar extends Component{
   constructor() {
     super();
     this.state = {
-      links: [{route: "/posts", name: "Posts"}, {route: "/create", name: "Create Posts"},{route: "/login", name: "Login"}]
+      links: [{route: "/posts", name: "Posts"}, {route: "/create", name: "Create Posts"},{route: "/login", name: "Login"}, {route: "/profile", name:"Profile"}]
     }
 
     };
@@ -23,13 +26,13 @@ componentDidMount(){
     if (user) {
       console.log("User Singed In")
       this.setState({
-        links: [{route: "/posts", name: "Posts"}, {route: "/create", name: "Create Posts"},{route: "/login", name: "Login"}]
+        links: [{route: "/posts", name: "Posts"}, {route: "/create", name: "Create Posts"},{route: "/login", name: "Login"}, {route: "/profile", name:"Profile"}]
       });
     }
     else{
       console.log("User Not Singed In")
       this.setState({
-        links: [{route: "/posts", name: "Posts"},{route: "/login", name: "Login"}]
+        links: [{route: "/posts", name: "Posts"},{route: "/login", name: "Login"}, {route: "/profile", name:"Profile"}]
       });
     }
   });
@@ -41,16 +44,19 @@ render(){
       textDecoration: "none",
       color: "black",
       fontSize: "150%",
-      marginLeft: "10%",
-      marginRight: "10%",
+      // marginLeft: "10%",
+      // marginRight: "10%",
     }
 
     var navBox = {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
       border: "1px solid black",
-      shadow: "5px solid black",
+      shadow: "3px solid black",
       padding: "2%",
       textAlign: "center",
-      margin: "2%",
+      marginBottom: "2%",
       backgroundColor: "#78aafa",
     }
     const routes = this.state.links.map((link) =>
