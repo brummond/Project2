@@ -3,6 +3,7 @@ import DisplayPost from './components/displayPost.js'
 import CreatePost from './components/createPost.js'
 import LoginPage from './components/LoginPage.js'
 import Navbar from './components/Navbar.js'
+import Profile from './components/profile.js'
 import './App.css';
 
 import {
@@ -27,6 +28,9 @@ function App() {
          </Route>
          <Route path="/login">
            <LoginPage />
+         </Route>
+         <Route path="/profile">
+           <Profile />
          </Route>
        </Switch>
      </div>
