@@ -21,7 +21,7 @@ class CreatePost extends React.Component{
       e.preventDefault();
       var db = firebase.firestore();
       var user = firebase.auth().currentUser;
-      db.collection("Posts").add({name: user.displayName, date: this.state.date, contents: this.state.content, title: this.state.title}).then(() => {
+      db.collection("Posts").add({name: user.displayName, date: this.state.date, contents: this.state.content, title: this.state.title, likes: 0}).then(() => {
         console.log("Document successfully written!");
       }).catch((error) => {
         console.error("Error writing document: ", error);
@@ -53,23 +53,30 @@ class CreatePost extends React.Component{
         marginLeft: "25%",
         border: "1px solid black",
         textAlign: "center",
-        padding: "1%"
+        padding: "1%",
+        backgroundColor: "#78aafa",
       };
+      var input = {
+        height: "40px",
+        width:"60%",
+        textAlign: "center",
+        backgroundColor: "white"
+      }
 
 
       return (
         <div style={postContainer} className="ToDo">
-          <div  style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="header">
-            <h1>Create a Post</h1>
+          <div  style={{display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: "1px solid black"}} className="header">
+            <h3>Create a Post</h3>
             </div>
             <div  style={{display: 'inline-block', alignItems: 'center', justifyContent: 'center'}}>
-              <h3>Author: {this.state.name}</h3>
+              <h5>Author: {this.state.name}</h5>
             </div>
             <form onSubmit = {this.addUser} style={{display: 'flex', flexDirection: "column", alignItems: 'center', justifyContent: 'center'}}>
-                <input style={{height: "40px", width:"40%"}} name = "title" id = "title" type="text"  onChange={this.updateInput} placeholder = "Enter Post Title" value = {this.state.title} />
-                <input style={{height: "40px", width:"40%"}} name = "content" id = "content" type="text"  onChange={this.updateInput} placeholder = "What are you thinking?" value = {this.state.content} />
-                <input style={{height: "40px"}} name = "date" id = "date" type="date" onChange={this.updateInput} value = {this.state.date} />
-              <input  style={{height: "40px"}} type="submit" value="Submit" />
+                <input style={input} name="title" id="title" type="text"  onChange={this.updateInput} placeholder="Enter Post Title" value={this.state.title} />
+                <input style={input} name="content" id="content" type="text"  onChange={this.updateInput} placeholder="What are you thinking?" value={this.state.content} />
+                <input style={input} name="date" id="date" type="date" onChange={this.updateInput} value={this.state.date} />
+              <input  style={{height: "40px", width:"60%"}} type="submit" value="Submit" />
             </form>
             <div  style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}className="TotalNumber">
           </div>

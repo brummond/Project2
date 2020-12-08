@@ -26,15 +26,25 @@ class DisplayPost extends React.Component {
       marginLeft: "25%",
       border: "1px solid black",
       textAlign: "center",
-      padding: "1%"
+      padding: "1%",
+      backgroundColor: "#78aafa",
+    }
+    var search = {
+      backgroundColor: "white",
+      borderRadius: "10px",
+      padding: "2px",
+      textAlign: "center",
+      marginLeft: "2%",
+      marginRight: "2%",
+      width: "96%"
     }
 
 
     return(
         <div style={postContainer}>
-          <h1> Posts </h1>
+          <h3> Posts </h3>
             <form>
-              <input type="text" placeholder="Search.." name="search" onChange={this.search} />
+              <input type="text" placeholder="Search.." name="search" onChange={this.search} style={search}/>
             </form>
           <SingelPost search={this.state.search}/>
         </div>

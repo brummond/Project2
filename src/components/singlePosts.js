@@ -8,7 +8,20 @@ class SinglePost extends React.Component {
     this.state = {
       posts: []
     }
+    this.likePost = this.likePost.bind(this);
     };
+
+  likePost = (postid) => {
+    var db = firebase.firestore();
+    db.collection("Posts").doc(postid).get().then((snapshot) => {
+      console.log(snapshot.data().likes)
+    })
+
+
+    //db.collection("Posts").doc(postid).set({capital: }, { merge: true });
+  }
+
+
   componentDidMount()
   {
     var tempArray = [];
@@ -59,21 +72,36 @@ class SinglePost extends React.Component {
   render() {
 
     var singlePost = {
-      border: "1px solid black",
+      //border: "1px solid black",
       width: "96%",
-      padding: "2%",
-      marginTop: "5px",
-      marginBottom: "5px",
+      marginLeft: "2%",
+      marginTop: "10px",
+      marginBottom: "10px",
+      backgroundColor: "white",
+      padding: "5px",
+      borderRadius: "10px"
+    }
+    var like = {
+      backgroundColor: "transparent",
+      border: "none",
+      color: "red"
+
     }
 
     return(
         <div>
           {this.state.posts.map((post) =>
             <div id={post.id} style={singlePost} key={post.id}>
-              <h3> {post.title}</h3>
+              <div style={{display: "flex", justifyContent: "flex-end"}}>
+                <p> _ Likes</p>
+              </div>
+              <h4> {post.title}</h4>
               <h5> {post.name} </h5>
               <h6> {post.date} </h6>
               <p> {post.contents} </p>
+              <div style={{display: "flex", justifyContent: "flex-end"}}>
+                <button onClick={() => this.likePost(post.id)} style={like}><i className="material-icons">favorite</i></button>
+              </div>
             </div>
           )}
         </div>
