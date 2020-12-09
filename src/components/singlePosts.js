@@ -11,6 +11,8 @@ class SinglePost extends React.Component {
     this.likePost = this.likePost.bind(this);
     };
 
+
+
   likePost = (postid, postTitle) => {
     document.getElementById(postTitle).style.color = "red"
     var db = firebase.firestore();
@@ -87,6 +89,7 @@ class SinglePost extends React.Component {
     var like = {
       backgroundColor: "transparent",
       border: "none",
+
       color: "grey"
     }
 
@@ -95,13 +98,18 @@ class SinglePost extends React.Component {
           {this.state.posts.map((post) =>
             <div id={post.id} style={singlePost} key={post.id}>
               <div style={{display: "flex", justifyContent: "flex-end"}}>
+
+                
+
                 <p> {post.likes} Likes</p>
+
               </div>
               <h4> {post.title}</h4>
               <h5> {post.name} </h5>
               <h6> {post.date} </h6>
               <p> {post.contents} </p>
               <div style={{display: "flex", justifyContent: "flex-end"}}>
+
                 <button id={post.title} onClick={() => this.likePost(post.id, post.title)} style={like}><i className="material-icons">favorite</i></button>
               </div>
             </div>
