@@ -32,7 +32,7 @@ componentDidMount(){
     else{
       console.log("User Not Singed In")
       this.setState({
-        links: [{route: "/posts", name: "Posts"},{route: "/login", name: "Login"}, {route: "/profile", name:"Profile"}]
+        links: [{route: "/posts", name: "Posts"},{route: "/login", name: "Login"}]
       });
     }
   });
@@ -51,7 +51,7 @@ render(){
     var navBox = {
       display: "flex",
       flexDirection: "row",
-      justifyContent: "space-between",
+      justifyContent: "space-around",
       border: "1px solid black",
       shadow: "3px solid black",
       padding: "2%",
