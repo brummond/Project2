@@ -20,7 +20,10 @@ class Profile extends React.Component{
       var db = firebase.firestore();
       db.collection("Profiles").doc(this.state.userID).set({name: this.state.name, about: this.state.about, major: this.state.major, minor: this.state.minor}).then(() => {
         console.log("wrote")
-        window.location.reload();
+        this.setState({
+          show: true
+        })
+
       })
 
     }
@@ -63,6 +66,7 @@ class Profile extends React.Component{
         }
       });
     }
+
 
     render() {
         var profileStyles = {
