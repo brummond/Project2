@@ -23,6 +23,12 @@ class CreatePost extends React.Component{
       var user = firebase.auth().currentUser;
       db.collection("Posts").add({name: user.displayName, date: this.state.date, contents: this.state.content, title: this.state.title, likes: 0}).then(() => {
         console.log("Document successfully written!");
+        this.setState({
+          content: "",
+          date: "",
+          name: "",
+          title: ""
+        })
       }).catch((error) => {
         console.error("Error writing document: ", error);
       });

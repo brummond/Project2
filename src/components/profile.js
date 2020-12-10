@@ -50,11 +50,11 @@ class Profile extends React.Component{
             }
             else
             {
-              this.setState({show: true})
+
               db.collection("Profiles").doc(this.state.userID).get().then((snapshot) => {
-                //console.log(snapshot.data())
-                this.setState({about: snapshot.data().about, major: snapshot.data().major, minor: snapshot.data().minor})
+                this.setState({major: snapshot.data().major, about: snapshot.data().about, minor: snapshot.data().minor, show: true})
               })
+
 
             }
           })

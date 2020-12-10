@@ -1,23 +1,60 @@
 import React from 'react';
 import SingelPost from './singlePosts.js'
-//import SearchPost from './searchPosts.js'
-
+import firebase from '../firebase.js';
 
 class DisplayPost extends React.Component {
   constructor(){
       super();
       this.state = {
-          search: ""
+          search: "",
+          posts: [],
+          filteredPosts: []
       };
       this.seach = this.search.bind(this);
   }
 
   search = e => {
-      this.setState({
+      /*this.setState({
         [e.target.name]:e.target.value
-      });
+      });*/
+      var temp = [];
+      this.state.posts.forEach((post) => {
+        if(post.title.match(e.target.value) || post.date.match(e.target.value))
+        {
+          temp.push(post);
+        }
+      })
+      this.setState({
+        filteredPosts: temp
+      })
+
+
   }
 
+  componentDidMount()
+  {
+    var i = 1;
+    var tempArray = [];
+    var db = firebase.firestore();
+    db.collection("Posts").get().then((snapshot) =>{
+      //console.log(snapshot.docs)
+      snapshot.docs.forEach((doc) => {
+
+          tempArray.push({
+            ...doc.data(),
+            id: doc.id,
+            index: i
+          })
+          i++;
+
+      })
+      this.setState({
+        posts: tempArray,
+        filteredPosts: tempArray
+      })
+    })
+
+  }
   render() {
     //console.log(this.state.posts)
     var postContainer = {
@@ -46,7 +83,7 @@ class DisplayPost extends React.Component {
             <form>
               <input type="text" placeholder="Search.." name="search" onChange={this.search} style={search}/>
             </form>
-          <SingelPost search={this.state.search}/>
+          <SingelPost search={this.state.search} posts={this.state.filteredPosts}/>
         </div>
       )
   }

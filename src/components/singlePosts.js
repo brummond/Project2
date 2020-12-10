@@ -5,20 +5,19 @@ class SinglePost extends React.Component {
   //will hold state of all the posts -- will be linked to firebase
   constructor() {
     super();
-    this.state = {
-      posts: []
-    }
     this.likePost = this.likePost.bind(this);
     };
 
 
 
-  likePost = (postid, postTitle) => {
+  likePost = (postIndex, postid, postTitle) => {
+    console.log(postIndex)
     document.getElementById(postTitle).style.color = "red"
     var db = firebase.firestore();
     db.collection("Posts").doc(postid).get().then((snapshot) => {
       var likeUp = snapshot.data().likes + 1;
       db.collection("Posts").doc(postid).set({likes: likeUp}, { merge: true });
+      document.getElementById(postIndex).innerHTML = likeUp + " Likes";
       //console.log(likeUp)
     })
 
@@ -26,53 +25,6 @@ class SinglePost extends React.Component {
     //db.collection("Posts").doc(postid).set({capital: }, { merge: true });
   }
 
-
-  componentDidMount()
-  {
-    var tempArray = [];
-    var db = firebase.firestore();
-    db.collection("Posts").get().then((snapshot) =>{
-      //console.log(snapshot.docs)
-      snapshot.docs.forEach((doc) => {
-        tempArray.push({
-          ...doc.data(),
-          id: doc.id
-        })
-
-      })
-      this.setState({
-        posts: tempArray
-      })
-    })
-
-  }
-  componentDidUpdate = () =>
-  {
-    var tempArray = [];
-    var db = firebase.firestore();
-    db.collection("Posts").get().then((snapshot) =>{
-      //console.log(snapshot.docs)
-      snapshot.docs.forEach((doc) => {
-        if(doc.data().title.match(this.props.search) || doc.data().date.match(this.props.search))
-        {
-          tempArray.push({
-            ...doc.data(),
-            id: doc.id
-          })
-        }
-      })
-      this.setState({
-        posts: tempArray
-      })
-    })
-
-  }
-  componentWillUnmount() {
-    // fix Warning: Can't perform a React state update on an unmounted component
-    this.setState = (state,callback)=>{
-        return;
-    };
-}
 
   render() {
 
@@ -93,15 +45,16 @@ class SinglePost extends React.Component {
       color: "grey"
     }
 
+
     return(
         <div>
-          {this.state.posts.map((post) =>
+          {this.props.posts.map((post) =>
             <div id={post.id} style={singlePost} key={post.id}>
               <div style={{display: "flex", justifyContent: "flex-end"}}>
 
-                
 
-                <p> {post.likes} Likes</p>
+
+              <p id={post.index}> {post.likes} Likes</p>
 
               </div>
               <h4> {post.title}</h4>
@@ -110,7 +63,7 @@ class SinglePost extends React.Component {
               <p> {post.contents} </p>
               <div style={{display: "flex", justifyContent: "flex-end"}}>
 
-                <button id={post.title} onClick={() => this.likePost(post.id, post.title)} style={like}><i className="material-icons">favorite</i></button>
+                <button id={post.title} onClick={() => this.likePost(post.index, post.id, post.title)} style={like}><i className="material-icons">favorite</i></button>
               </div>
             </div>
           )}
